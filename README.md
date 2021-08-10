@@ -1,2 +1,5 @@
-# web-340
-Quick Links WEB340-H321 Node.js (2221-DD) - Bellevue University
+# WEB 340 Node.js
+---
+## Contributors
+* Richard Krasso
+* Gunner Bradley
