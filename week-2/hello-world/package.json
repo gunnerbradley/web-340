@@ -1,0 +1,6 @@
+{
+  "name": "hello-world",
+  "author": "Gunner Bradley",
+  "private": true,
+  "dependencies": { "express": "^4.17.1" }
+}
