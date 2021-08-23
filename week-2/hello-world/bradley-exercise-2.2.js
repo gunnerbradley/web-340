@@ -17,4 +17,4 @@ app.use((req, res) => {
 });
 
 
-http.createServer(app).listen(8080); //serves application oon port 8080
+http.createServer(app).listen(8080); //serves application on port 8080
