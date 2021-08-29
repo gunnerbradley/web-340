@@ -19,7 +19,7 @@ app.use(logger("dev"));
 
 //handles get request with a productID parameter
 app.get("/:productId", (req, res) => {
-    var productId = parseInt(req.params.productId, 10);
+    let productId = parseInt(req.params.productId, 10);
      res.render("index", {
         productId: productId,
         author: "by Gunner Bradley"

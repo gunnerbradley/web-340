@@ -1,0 +1,28 @@
+<!--
+    Title: index.ejs
+    Author: Gunner Bradley
+    Date: 08/28/21
+    Description: index page view
+-->
+<%- include('header'); -%>
+
+<body style="background-color: #4F3674";>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title display-2"><%= message %></h5>
+                        <hr>
+                        <h6 class="card-subtitle display-6 mb-2 text-muted"><%= author %></h6>
+                    </div>
+                </div>
+            </div> 
+            <div class="col"></div>
+        </div>
+    </div>
+<%- include('footer'); -%>
+
+
+    
