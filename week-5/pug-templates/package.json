@@ -1,0 +1,9 @@
+{
+  "name": "pug-templates",
+  "author": "Gunner Bradley",
+  "private": true,
+  "dependencies": {
+    "pug":  "^3.0.2",
+    "express": "^4.17.1"
+  }
+}
