@@ -1,0 +1,38 @@
+<!--
+    Title: index.ejs
+    Author: Gunner Bradley
+    Date: 09/12/21
+    Description: EJS-Views serving HTML
+-->
+    <div role="main" class="container">
+    <br/><br/>
+    <h2>Name List</h2>
+    <% for (let k = 0; k < names.length; k++) { %>
+
+        <!-- if -->
+        <% if (names[k] == "Adam") { %>
+            <div class="alert alert-success" role="alert"><strong><%= names[k] %></strong></div>
+        <% } %>
+        <!-- // end if -->
+
+        <!-- if -->
+        <% if (names[k] == "Barry") { %>
+            <div class="alert alert-info" role="alert"><strong><%= names[k] %></strong></div>
+        <% } %>
+        <!-- // end if -->
+
+        <!-- if -->
+        <% if (names[k] == "Candice") { %>
+            <div class="alert alert-warning" role="alert"><strong><%= names[k] %></strong></div>
+        <% } %>
+        <!-- // end if -->
+
+        <!-- if -->
+        <% if (names[k] == "Darla") { %>
+            <div class="alert alert-danger" role="alert"><strong><%= names[k] %></strong></div>
+        <% } %>
+        <!-- // end if -->
+
+    <% } %>
+    <!-- end for loop -->
+</div>
