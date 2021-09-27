@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 // Connecting to MongoDB
-const mongoDB = 'mongodb+srv://bradley:Redding2020@cluster0.mlnw2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const mongoDB = 'mongodb+srv://bradley:<password>@cluster0.mlnw2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
