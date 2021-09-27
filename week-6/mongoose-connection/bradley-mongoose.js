@@ -14,7 +14,7 @@ const mongoose = require("mongoose")
 
 let app = express();
 
-const mongoDB = "mLab connection string";
+const mongoDB = "mongodb+srv://bradley:<password>@cluster0.mlnw2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 mongoose.connect(mongoDB, {
 

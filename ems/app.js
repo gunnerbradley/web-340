@@ -11,6 +11,8 @@ const http = require("http");
 const path = require("path");
 const logger = require("morgan");
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose');
+const Employee = require('./models/employees');
 
 const app = express();//init app
 
@@ -24,6 +26,24 @@ app.get("/", (req, res) => {
         title: "Home Page"
     });
 });
+
+// Connecting to MongoDB
+const mongoDB = 'mongodb+srv://bradley:Redding2020@cluster0.mlnw2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error: '));
+db.once('open', () => { console.log('Application connected to MongoDB')});
+
+
+//init employee data
+let employee = new Employee({
+
+    firstName: "John",
+    lastName: "Doe"
+
+});
+
 
 // init server
 http.createServer(app).listen(8080, function() {
