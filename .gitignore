@@ -4,7 +4,7 @@
 
 # Node ddependency directories
 node_modules/
-*/ndoe_modules
+*/node_modules
 
 # Optional npm cache directory
 .npm
@@ -14,5 +14,3 @@ node_modules/
 
 # macOS files
 .DS_Store
-
-# unfinished Project
