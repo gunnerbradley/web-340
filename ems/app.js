@@ -68,11 +68,20 @@ app.get("/new", (req, res) => {
 });
 
 app.post("/process", (req, res) => {
-  console.log(req.body);
-  if (!req.body.firstName || !req.body.lastName) {
+    if (!req.body.firstName || !req.body.lastName) {
     res.status(404).send("Please enter first and last name.");
     return;
   }
+
+  app.get("/list", (req, res) => {
+    Employee.find({}, (err, employees) => {
+    if (err) throw err;
+    res.render("list", {
+      title: "Employees Page",
+      employees: employees,
+    });
+  });
+});
 
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
@@ -92,15 +101,7 @@ app.post("/process", (req, res) => {
   });
 });
 
-app.get("/list", (req, res) => {
-  Employee.find({}, (error, employees) => {
-    if (error) throw error;
-    res.render("list", {
-      title: "Employees Page",
-      employees: employees,
-    });
-  });
-});
+
 
 
 
