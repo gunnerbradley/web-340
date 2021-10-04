@@ -6,13 +6,17 @@ Description: Layouts and UI Development exercise
 */
 
 // set requirements
+require('dotenv').config()
 const express = require("express");
+const helmet = require("helmet");
 const http = require("http");
 const path = require("path");
 const logger = require("morgan");
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 const Employee = require('./models/employees');
+
+const MONGO_AUTH = process.env.MONGO_AUTH;
 
 const app = express();//init app
 
@@ -21,14 +25,20 @@ app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(logger("short"));
 
+app.use(helmet.xssFilter()); //init helmet middleware
+
+
+
 app.get("/", (req, res) => {
     res.render("index", {
-        title: "Home Page"
+        title: "Home Page",
+        message: "XSS Prevention Example"
+
     });
 });
 
 // Connecting to MongoDB
-const mongoDB = 'mongodb+srv://<DBname>:<password>@cluster0.mlnw2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const mongoDB = MONGO_AUTH;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
