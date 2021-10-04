@@ -42,6 +42,13 @@ app.set("view engine", "ejs");
 app.use(logger("short"));
 app.use(helmet.xssFilter()); //init helmet middleware
 
+// Connecting to MongoDB
+const mongoDB = MONGO_AUTH;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error: '));
+db.once('open', () => { console.log('Application connected to MongoDB')});
 
 // ROUTING
 app.get("/", (req, res) => {
@@ -54,36 +61,57 @@ app.get("/", (req, res) => {
 
 app.get("/new", (req, res) => {
     res.render("new", {
-        title: "Home Page",
+        title: "New Employee Page",
         message: "XSS Prevention Example"
 
     });
 });
 
-
 app.post("/process", (req, res) => {
-    console.log(req.body.txtName);
-    res.redirect("/");
+  console.log(req.body);
+  if (!req.body.firstName || !req.body.lastName) {
+    res.status(404).send("Please enter first and last name.");
+    return;
+  }
+
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+
+  //DB Schema
+  const employee = new Employee({
+    firstName: firstName,
+    lastName: lastName,
+  });
+
+  //Save data to DB
+  employee.save( (error) => {
+    if (error) throw error;
+     
+    console.log(`Name Save: ${firstName} ${lastName}` );
+    res.redirect("/list");
+  });
+});
+
+app.get("/list", (req, res) => {
+  Employee.find({}, (error, employees) => {
+    if (error) throw error;
+    res.render("list", {
+      title: "Employees Page",
+      employees: employees,
+    });
+  });
 });
 
 
 
-// Connecting to MongoDB
-const mongoDB = MONGO_AUTH;
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.Promise = global.Promise;
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error: '));
-db.once('open', () => { console.log('Application connected to MongoDB')});
 
 
-//init employee data
-let employee = new Employee({
 
-    firstName: "John",
-    lastName: "Doe"
 
-});
+
+
+
+
 
 
 // init server
