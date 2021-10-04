@@ -4,3 +4,43 @@
     Date: 9/18/2021
     Description: Data Entry Page
 -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('header') -%>
+
+    <body class="bg-body">
+    <%- include('navbar') -%>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1 col-md-6 offset-md-3">
+
+                <div role="main" class="container">
+                    <br/><br />
+
+                    <h2>-- Employee Entry Page --</h2>
+                    <form method="post" action="/process">
+                        <div class="form-group mb-3">
+                            <label for="txtName">Name:</label>
+                            <input type="text" class="form-control" id="txtName" name="txtName" />
+                        </div>
+
+                        <div class="form-group">
+                            <!-- CSRF token -->
+                            <input name="_csrf" value="<%= csrfToken %>" type="hidden"  class="form-control"/>
+                            <button type="submit" class="btn btn-secondary float-right">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('footer') -%>
+    <%- include('scripts') -%>
+    
+    </body>
+</html>
