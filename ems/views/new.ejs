@@ -24,12 +24,14 @@
           <div class="form-group">
               <label for="employeeName">Full Name:</label>
               <input name="employeeName" type="text" id="employeeName" name="employeeName">
+              <div id="nameHelp" class="form-text">EX: John Doe, Mary Smith</div>
           </div>
           <div class="form-group">   
 
               <!-- CSRF token -->
               <input name="_csrf" value="<%= csrfToken %>" type="hidden">
               <button class="btn btn-primary float-right" type="submit">Submit</button>
+
           </div>
       </form>
                 </div>

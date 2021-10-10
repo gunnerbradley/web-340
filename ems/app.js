@@ -17,6 +17,8 @@ const cookieParser = require("cookie-parser");
 const csrf = require("csurf");
 const mongoose = require('mongoose');
 const Employee = require('./models/employees');
+const PORT = process.env.PORT || 8080;
+
 const MONGO_AUTH = process.env.MONGO_AUTH;
 
 const app = express();//init app
@@ -44,7 +46,7 @@ app.use(helmet.xssFilter()); //init helmet middleware
 
 // Connecting to MongoDB
 const mongoDB = MONGO_AUTH;
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log(err));
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
@@ -127,33 +129,8 @@ app.post("/process", (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // init server
-http.createServer(app).listen(8080, function() {
-    console.log("Application started on port 8080!");
+http.createServer(app).listen(PORT, () => {
+    console.log(`Application started on port ${PORT}!`);
 });
 
-
- // Employee.findOne({'employeeName': decodedParam}, (err, name) => {
-    //     if (err) throw err;
-
-    //     if (name.length > 0) {
-    //         res.render("view", {
-    //             title: "Employee Records",
-    //             name: name
-    //         })
-    //     }
-    //     else {
-    //         res.redirect("/list")
-    //     }
-    // });
