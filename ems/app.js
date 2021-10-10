@@ -67,36 +67,59 @@ app.get("/new", (req, res) => {
     });
 });
 
-app.post("/process", (req, res) => {
-    if (!req.body.firstName || !req.body.lastName) {
-    res.status(404).send("Please enter first and last name.");
-    return;
-  }
-
-  app.get("/list", (req, res) => {
-    Employee.find({}, (err, employees) => {
+app.get("/list", (req, res) => {
+  Employee.find({}, (err, employees) => {
     if (err) throw err;
+
     res.render("list", {
       title: "Employees Page",
-      employees: employees,
+      employees: employees
     });
   });
 });
 
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
+app.get("/views/:queryName", (req, res) => {
+
+    let encodedParam = req.params.queryName;
+    let  decodedParam = decodeURIComponent(encodedParam);
+
+    Employee.findOne({'employeeName': decodedParam})
+
+    .then(employeeData => {
+    if(employeeData) {
+      res.render("views", {
+        title: "Employee Records",
+        name: employeeData.employeeName
+      })
+
+
+    } else {
+      console.log("No document matches the provided query.");
+    }
+    return result;
+  })
+  .catch(err => console.error(`Failed to find document: ${err}`));
+});
+
+
+app.post("/process", (req, res) => {
+    if (!req.body.employeeName) {
+    res.status(404).send("Please enter first and last name.");
+    return;
+  }
+
+  const employeeName = req.body.employeeName;
 
   //DB Schema
   const employee = new Employee({
-    firstName: firstName,
-    lastName: lastName,
+    employeeName: employeeName,
   });
 
   //Save data to DB
   employee.save( (error) => {
     if (error) throw error;
      
-    console.log(`Name Save: ${firstName} ${lastName}` );
+    console.log(`Name Save: ${employeeName}` );
     res.redirect("/list");
   });
 });
@@ -119,3 +142,18 @@ app.post("/process", (req, res) => {
 http.createServer(app).listen(8080, function() {
     console.log("Application started on port 8080!");
 });
+
+
+ // Employee.findOne({'employeeName': decodedParam}, (err, name) => {
+    //     if (err) throw err;
+
+    //     if (name.length > 0) {
+    //         res.render("view", {
+    //             title: "Employee Records",
+    //             name: name
+    //         })
+    //     }
+    //     else {
+    //         res.redirect("/list")
+    //     }
+    // });

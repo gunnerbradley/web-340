@@ -4,3 +4,46 @@
     Date: 9/18/2021
     Description: Read-only page with the selected employee’s details
 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('header') -%>
+
+    <body class="bg-body">
+    <%- include('navbar') -%>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1 col-md-6 offset-md-3">
+                
+              <% if (name) { %>
+            <h2>Employee Records</h2><br />
+            <table class="table table‐hover">
+                <thead class="thead‐dark">
+                    <tr>
+                        <th>Employee Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= name %></td>
+                    </tr>
+                </tbody>                
+            </table>
+            <a href="/list">Return to Employee list</a>
+
+        <% } else { %>
+            <a href="/new">+Add Employee</a>
+        <% } %>
+    
+            </div>
+        </div>
+    </div>
+
+
+    <%- include('footer') -%>
+    <%- include('scripts') -%>
+    
+    </body>
+</html>
